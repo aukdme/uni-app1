@@ -1,7 +1,13 @@
 <template>
 	<view class="search-form round">
 		<text class="cuIcon-search"></text>
-		<input :adjust-position="false" type="text" placeholder="搜索图片、文章、视频" confirm-type="search"></input>
+		<input
+			:value="searchValue"
+			@input="onInput"
+			:adjust-position="false"
+			type="text" 
+			placeholder="搜名词或关键词" 
+			confirm-type="search"></input>
 	</view>
 </template>
 
@@ -9,11 +15,15 @@
 	export default {
 		data() {
 			return {
-				
-			};
+				searchValue: ''
+			}
+		},
+		methods: {
+			onInput(e) {
+				const {value} = e.detail
+				this.searchValue = value
+				this.$emit('input',value)
+			}
 		}
 	}
 </script>
-
-<style lang="scss" scoped>
-</style>
