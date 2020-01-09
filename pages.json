@@ -3,19 +3,26 @@
 		{
 			"path": "pages/index/index",
 			"style": {
-				"navigationBarTitleText": "uni-app"
+				"navigationBarTitleText": "目录"
+			}
+		},
+		{
+			"path" : "pages/page2/page2",
+			"style" : {
+				"navigationBarTitleText": "实名认证"
+			}
+		},
+		{
+			"path" : "pages/page1/page1",
+			"style" : {
+				"navigationStyle": "custom"
 			}
 		}
-	    ,{
-            "path" : "pages/search/search",
-            "style" : {}
-        }
-    ],
+   ],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
 		"navigationBarTitleText": "uni-app",
 		"navigationBarBackgroundColor": "#F8F8F8",
-		"backgroundColor": "#F8F8F8",
-		"navigationStyle": "custom"
+		"backgroundColor": "#F8F8F8"
 	}
 }
