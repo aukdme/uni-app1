@@ -26,6 +26,10 @@
 					name="phone"></input>
 			</view>
 		</form>
+		<button 
+			class="cu-btn lg auth-btn">
+			开始人脸识别验证
+		</button>
 	</view>
 </template>
 
@@ -48,6 +52,8 @@ page {
 	.cu-form-group {
 		padding-left: 4upx;
 		padding-right: 4upx;
+		border-top: none;
+		border-bottom: 3upx solid #eaeaea;
 		
 		.title-fix {
 			width: 150upx;
@@ -64,6 +70,17 @@ page {
 			font-size: 32upx;
 			color: #b3b0b0;
 		}
+	}
+	
+	.auth-btn {
+		position: absolute;
+		bottom: 48upx;
+		left: 62upx;
+		right: 62upx;
+		height: 98upx;
+		font-size: 32upx;
+		color: #fff;
+		background-color: rgb(5,115,234);
 	}
 }
 </style>

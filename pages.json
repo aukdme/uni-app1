@@ -7,6 +7,12 @@
 			}
 		},
 		{
+			"path" : "pages/page3/page3",
+			"style" : {
+				"navigationBarTitleText": "人脸认证"
+			}
+		},
+		{
 			"path" : "pages/page2/page2",
 			"style" : {
 				"navigationBarTitleText": "实名认证"

@@ -24,6 +24,10 @@
 						title: '实名认证',
 						name: 'blue',
 						page: 'page2'
+					},{
+						title: '人脸认证',
+						name: 'blue',
+						page: 'page3'
 					},
 				]
 			};
