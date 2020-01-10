@@ -3,11 +3,9 @@
 		<form>
 			<view class="cu-form-group margin-top">
 				<view class="title title-fix">姓名</view>
-				<view class="wrap">
-					<input 
-						name="name"></input>
-					<text class="placeholder">填写真实姓名</text>
-				</view>
+				<input 
+					placeholder="填写真实姓名" 
+					name="name"></input>
 			</view>
 			<view class="cu-form-group">
 				<view class="title">身份证号</view>
@@ -62,16 +60,9 @@ page {
 		}
 		
 		.input-placeholder {
+			margin-top: 2upx;
 			font-size: 32upx;
 			color: #b3b0b0;
-		}
-		
-		.wrap {
-			position: relative;
-			.placeholder {
-				position: absolute;
-				left: 0;
-			}
 		}
 	}
 }
