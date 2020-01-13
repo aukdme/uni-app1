@@ -21,7 +21,9 @@
 					</view>
 				</view>
 			</view>
-			<button class="cu-btn lg auth-btn">
+			<button 
+				@tap="test"
+				class="cu-btn lg auth-btn">
 				获取验证码
 			</button>
 		</view>
@@ -32,8 +34,21 @@
 	export default {
 		data() {
 			return {
-				
+				base64: ''
 			};
+		},
+		methods: {
+			test() {
+				uni.chooseVideo({
+						sourceType: ['camera'],
+						maxDuration: 15,
+						// camera: 'front',
+						success: res => {
+							const manager = uni.getFileSystemManager()
+							this.base64 = manager.readFileSync(res.tempFilePath,'base64')
+						}
+				});
+			}
 		}
 	}
 </script>
