@@ -1,29 +1,30 @@
 {
 	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
 		{
-			"path" : "pages/my/task/index",
-			"style" : {
-				"navigationStyle": "custom"
-			}
-		},
-		{
 			"path" : "pages/my/my",
 			"style" : {
 				"navigationBarTitleText": "我的"
 			}
 		},
 		{
+			"path" : "pages/agent/agent",
+			"style" : {
+				"navigationStyle": "custom"
+			}
+		},
+		
+		{
 			"path" : "pages/my/number/index",
 		  "style" : {
-				"navigationBarTitleText": "我的成员"
+				"navigationStyle": "custom"
 			}
 		},
 		{
-			"path" : "pages/agent/agent",
+			"path" : "pages/my/task/index",
 			"style" : {
-				"navigationBarTitleText": "代理"
+				"navigationStyle": "custom"
 			}
-		},
+		},		
 		{
 			"path": "pages/index/index",
 			"style": {

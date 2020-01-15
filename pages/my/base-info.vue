@@ -10,7 +10,10 @@
 		<view class="detail">
 			<view class="name">{{userInfo.name}}</view>
 			<view class="org">单位：{{userInfo.org}} {{userInfo.position}}</view>
-			<view class="level">级别：{{userInfo.level}}</view>
+			<view class="level">
+				级别：{{userInfo.level}}
+				<text class="ing">代理申请进行中</text>
+			</view>
 		</view>
 	</view>
 </template>

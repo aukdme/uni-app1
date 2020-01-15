@@ -1,61 +1,36 @@
 <template>
-	<view class="my-task">
-		<cu-custom is-back>
-			<view 
-				slot="content" 
-				class="content"
-				:style="{
-					top: StatusBar+'px'
-				}">我的任务</view>
-		</cu-custom>
-		<image 
-			mode="aspectFill"
-			src="../../../static/bg_task.png"
-			class="bg"></image>
-		
+	<page-container1 
+		class="my-task"
+		title="我的任务">
 		<header-content />
-		<task-detail />
-	</view>
+		<task-detail :list="list"/>
+	</page-container1>
 </template>
 
 <script>
+import PageContainer1 from '../../../components/page-container1.vue'
 import HeaderContent from './header-content.vue'
 import TaskDetail from './task-detail.vue'
 export default {
 	components: {
+		PageContainer1,
 		HeaderContent,
 		TaskDetail
 	},
 	data() {
 		return {
-			StatusBar: this.StatusBar
+			StatusBar: this.StatusBar,
+			list: [
+				{name: '中山职业学校',number: 120,money: 1100},
+				{name: '中山职业学校1',number: 220,money: 2100}
+			]
 		};
 	}
 }
 </script>
 
 <style lang="scss">
-.impact {
-	font-family: Impact;
-}
 .my-task {
-	font-family:PingFang-SC-Medium,PingFang-SC;
-	.cuIcon-back {
-		color: #fff;
-	}
-	.cu-custom .cu-bar {
-		text-align: center;
-		color: #fff;
-	}
-	.bg {
-		position: absolute;
-		top: 0;
-		left: 0;
-		z-index: -1;
-		width: 100%;
-		height: 100%;
-	}
-	
 	.header {
 		overflow: hidden;
 		position: relative;
@@ -98,53 +73,6 @@ export default {
 			line-height: 44upx;
 			letter-spacing: 4.64upx;
 			color: #F4E116;
-		}
-	}
-	
-	.task-detail {
-		margin: 10upx 30upx 0;
-		.title {
-			font-size: 32upx;
-			line-height: 44upx;
-			color: #fff;
-		}
-		.detail-list {
-			margin-top: 22upx;
-			background-color: #fff;
-			border-radius: 8upx;
-			box-shadow: 0 0 2upx #D5D5D5;
-		}
-		.detail {
-			position: relative;
-			padding: 28upx 28upx 32upx 32upx;
-			&:not(:last-child):after {
-				@extend %line;
-			}
-			.look {
-				position: absolute;
-				right: 28upx;
-				font-size: 28upx;
-				line-height: 40upx;
-				font-weight: 500;
-				color: #ED3242;
-			}
-			.name {
-				font-size: 32upx;
-				line-height: 44upx;
-				font-weight: bold;
-				color: #333333;
-			}
-			.data {
-				margin-top: 20upx;
-				font-size: 28upx;
-				line-height: 40upx;
-				color: #999999;
-			}
-			.number,
-			.money {
-				margin-right: 30upx;
-				color: #ED3242;
-			}
 		}
 	}
 }

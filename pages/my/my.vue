@@ -77,6 +77,19 @@ page {
 		.org {
 			margin: 28upx 0 14upx;
 		}
+		.ing {
+			margin-left: 50upx;
+			display: inline-flex;
+			justify-content: center;
+			align-items: center;
+			height: 44upx;
+			padding: 0 10upx;
+			font-size: 24upx;
+			color: #fff;
+			background: rgba(255,138,33,1);
+			border-radius: 8upx;
+			border: 2upx solid rgba(151,151,151,1);
+		}
 	}
 	.center-text {
 		padding: 16upx 30upx 34upx;

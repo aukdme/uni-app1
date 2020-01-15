@@ -3910,3 +3910,12 @@ scroll-view.cu-steps .cu-item {
 .lines-white {
 	color: #ffffff;
 }
+
+/**----------------------------**/
+.bg-f0 {
+	color: #2F2626;
+	background: #f0f0f0;
+}
+.bg-f0 .cuIcon-back {
+	color: #2F2626;
+}

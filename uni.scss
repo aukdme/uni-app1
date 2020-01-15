@@ -91,3 +91,52 @@ $theme-color: #0573EA;
 	transform-origin: 0 0;
 	pointer-events: none
 }
+.impact {
+	font-family: Impact;
+}
+.common-detail {
+	margin: 10upx 30upx 0;
+	.title {
+		font-size: 32upx;
+		line-height: 44upx;
+		color: #fff;
+	}
+	.detail-list {
+		margin-top: 22upx;
+		background-color: #fff;
+		border-radius: 8upx;
+		box-shadow: 0 0 2upx #D5D5D5;
+	}
+	.detail {
+		position: relative;
+		padding: 28upx 28upx 32upx 32upx;
+		&:not(:last-child):after {
+			@extend %line;
+		}
+		.extra {
+			position: absolute;
+			right: 28upx;
+			font-size: 28upx;
+			line-height: 40upx;
+			font-weight: 500;
+			color: #ED3242;
+		}
+		.name {
+			font-size: 32upx;
+			line-height: 44upx;
+			font-weight: bold;
+			color: #333333;
+		}
+		.data {
+			margin-top: 20upx;
+			font-size: 28upx;
+			line-height: 40upx;
+			color: #999999;
+		}
+		.text1,
+		.text2 {
+			margin-right: 30upx;
+			color: #ED3242;
+		}
+	}
+}
