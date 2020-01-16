@@ -3,45 +3,15 @@
 		bg-color="bg-f0"
 		title="申请学校代理">
 		<view class="agent-apply">
-			<view class="cu-bar search">
-				<view class="search-form round">
-					<input 
-						:adjust-position="false" 
-						type="text" 
-						placeholder="请输入申请的学校代理" 
-						confirm-type="search"></input>
-				</view>
-				<view 
-					@click="onClickAction"
-					class="action">
-					<text>按学校</text>
-					<text 
-						:class="[
-							'cuIcon-triangledownfill',
-							{ 'cuIcon-active': actionStatus }
-						]">
-						</text>
-				</view>
-			</view>
+			<search 
+				@on-change-mask-status="onChangeMaskStatus"/>
+			<view
+				v-show="maskShow"
+				class="mask"></view>
+			<selected-list 
+				:list="list"
+				@on-del="onSelectListDel"/>
 			
-			<view class="schools">
-				<view class="title">申请代理学校</view>
-				<scroll-view 
-					scroll-y
-					class="list">
-					<view 
-						v-for="(item,index) of list"
-						:key="index"
-						class="school"
-						:class="delIndex === index?'animation-reverse animation-scale-up':''">
-						<view class="name">{{item.name}}</view>
-						<view class="address">地址：{{item.address}}</view>
-						<text 
-							@click="onClickDel(index)"
-							class="cuIcon-roundclosefill"></text>
-					</view>
-				</scroll-view>
-			</view>
 			
 			<view class="desc">
 				<view class="title">申请理由/备注</view>
@@ -60,12 +30,17 @@
 
 <script>
 import PageContainer1 from 'components/page-container1.vue'
+import Search from './search.vue'
+import SelectedList from './selected-list.vue'
 export default {
 	components: {
-		PageContainer1
+		PageContainer1,
+		Search,
+		SelectedList
 	},
 	data() {
 		return {
+			maskShow: false,
 			actionStatus: false,
 			list: [
 				{name: '成都航空港职业学院1',address: '成都市武侯区太平南新街68号'},
@@ -77,7 +52,7 @@ export default {
 				{name: '成都航空港职业学院7',address: '成都市武侯区太平南新街68号'},
 				{name: '成都航空港职业学院8',address: '成都市武侯区太平南新街68号'}
 			],
-			delIndex: -1,
+			
 			desc: ''
 		};
 	},
@@ -85,16 +60,11 @@ export default {
 		console.log(params)
 	},
 	methods: {
-		onClickAction() {
-			this.actionStatus = !this.actionStatus
+		onSelectListDel(index) {
+			this.list.splice(index,1)
 		},
-		onClickDel(index) {
-			this.delIndex = index
-			let timer = setTimeout(() => {
-				this.delIndex = -1
-				this.list.splice(index,1)
-				timer = null
-			},800)
+		onChangeMaskStatus(status) {
+			this.maskShow = status
 		}
 	}
 }
@@ -102,9 +72,18 @@ export default {
 
 <style lang="scss">
 .agent-apply {
-	margin: 0 36upx;
+	position: relative;
+	padding: 24upx 36upx 0;
+	.mask {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100vh;
+		z-index: 2;
+		background-color: rgba(0,0,0, 0.44);
+	}
 	.cu-bar {
-		margin-top: 24upx;
 		min-height: auto;
 		.search-form {
 			margin: 0;
@@ -112,7 +91,9 @@ export default {
 			line-height: 80upx;
 			border-radius: 8upx 0 0 8upx;
 			input {
-				padding-left: 30upx;
+				padding-left: 22upx;
+				padding-right: 22upx;
+				font-size: 28upx;
 			}
 		}
 	}
@@ -135,6 +116,57 @@ export default {
 			transform: translateY(4upx) rotate(180deg);
 		}
 	}
+	.search {
+		position: relative;
+		z-index: 3;
+		&-list-container {
+			position: absolute;
+			top: 82upx;
+			left: 0;
+			z-index: 9;
+			width: 100%;
+			.extra {
+				text-align: center;
+				font-size: 56upx;
+				color: #fff;
+			}
+		}
+		&-list {
+			max-height: 600upx;
+			font-size: 24upx;
+			background-color: #fff;
+			border-radius: 8upx;
+			box-shadow: 0 0 2upx #d5d5d5;
+			.item {
+				position: relative;
+				display: flex;
+				padding: 25upx 90upx 25upx 22upx;
+				&:not(:last-child):after {
+					@extend %line;
+				}
+				.highlight {
+					color: #F13D4B;
+				}
+				.name {
+					line-height: 34upx;
+				}
+				.add {
+					position: absolute;
+					top: 10upx;
+					right: 10upx;
+					width: 80upx;
+					line-height: 56upx;
+					text-align: center;
+					@extend .highlight;
+					&:active {
+						text-shadow: 0 0 4upx rgba(241, 61, 75, .5);
+					}
+				}
+				
+			}
+		}
+	}
+	
 
 	.schools {
 		.title {
@@ -147,7 +179,6 @@ export default {
 		
 		.list {
 			max-height: calc(100vh - 760upx);
-			background-color: #fff;
 			border-radius: 8upx;
 			box-shadow: 0 0 2upx #d5d5d5;
 		}
@@ -155,6 +186,7 @@ export default {
 		.school {
 			position: relative;
 			padding: 35upx 76upx 35upx 32upx;
+			background-color: #fff;
 			&:not(:last-child):after {
 				@extend %line;
 			}
