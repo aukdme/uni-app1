@@ -4,10 +4,17 @@
 		:is-back="isBack"
 		title="申请代理"
 		ref="pageContainer1">
-		<view class="apply-agent">	
-			<button class="cu-btn block">一级代理</button>
-			<button class="cu-btn block">二级代理</button>
-			<view class="agreement-container">
+		<view class="agent">	
+			<button 
+				v-for="(item,index) of lvList"
+				:key="index"
+				@click="onClickBtn(item)"
+				:disabled="item.disabled"
+				class="cu-btn block">{{item.label}}</button>
+				
+			<view 
+				v-if="!isAgree"
+				class="agreement-container">
 				<view class="agreement">
 					<view class="title">职责说明协议</view>
 					<scroll-view 
@@ -15,6 +22,7 @@
 						class="content">兹有我司委托代理人申报学生报名事项，现向贵司声明该报名过程与我公司无关。若经父母方发现任何不实, 我方愿承担RMB2000元/单的违约金,且 不免除对我方其他责任的追究.。兹有我司委托代理人申报学生报名事项，现向贵司声明该报名过程与我公司无关。若经父母方发现任何不实, 我方愿承担RMB2000元/单的违约金,且 不免除对我方其他责任的追究。兹有我司委托代理人申报学生报名事项，现向贵司声明该报名过程与我公司无关。若经父母方发现任何不实, 我方愿承担RMB2000元/单的违约金,且 不免除对我方其他责任的追究.。兹有我司委托代理人申报学生报名事项，现向贵司声明该报名过程与我公司无关。若经父母方发现任何不实, 我方愿承担RMB2000元/单的违约金,且 不免除对我方其他责任的追究。</scroll-view>
 				</view>
 				<button 
+					@click.once="onClickAgree"
 					class="cu-btn block agree-btn">同意并继续</button>
 			</view>
 		</view>
@@ -29,7 +37,12 @@ export default {
 	},
 	data() {
 		return {
-			isBack: false
+			isBack: false,
+			lvList: [
+				{label: '一级代理',disabled: true,type: 1},
+				{label: '二级代理',disabled: true,type: 1}
+			],
+			isAgree: false
 		};
 	},
 	onReady() {
@@ -49,12 +62,25 @@ export default {
 	onTabItemTap() {
 		this.isBack = true
 		uni.hideTabBar()
+	},
+	methods: {
+		onClickBtn(lv) {
+			uni.navigateTo({
+				url: `./agent-apply/index?type=${lv.type}`
+			})
+		},
+		onClickAgree() {
+			this.isAgree = true
+			this.lvList.forEach(item => {
+				item.disabled = false
+			})
+		}
 	}
 }
 </script>
 
 <style lang="scss">
-.apply-agent {
+.agent {
 	margin: 0 38upx;
 	button {
 		margin-top: 40upx;

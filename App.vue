@@ -38,6 +38,7 @@ export default {
 	/*每个页面公共css */
 	@import "./colorui/main.css";
 	@import "./colorui/icon.css";
+	@import "./colorui/animation.css";
 	.bg-f0 {
 		color: #2F2626;
 		background: #f0f0f0;

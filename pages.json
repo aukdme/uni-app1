@@ -1,6 +1,18 @@
 {
 	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
 		{
+			"path" : "pages/agent/agent-apply/index",
+			"style" : {
+				"navigationStyle": "custom"
+			}
+		},
+		{
+		  "path" : "pages/login/login",
+		  "style" : {
+				"navigationBarTitleText": "登录"
+			}
+		},
+		{
 			"path" : "pages/agent/agent",
 			"style" : {
 				"navigationStyle": "custom"
@@ -48,7 +60,7 @@
 				"navigationStyle": "custom"
 			}
 		}
-  ],
+   ],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
 		"navigationBarTitleText": "uni-app",
