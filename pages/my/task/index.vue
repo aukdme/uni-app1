@@ -1,6 +1,7 @@
 <template>
 	<page-container1 
 		class="my-task"
+		bg-color="bg-transparent"
 		title="我的任务">
 		<header-content />
 		<task-detail :list="list"/>

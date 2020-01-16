@@ -1,5 +1,7 @@
 <template>
-	<page-container1 title="我的成员">
+	<page-container1 
+		bg-color="bg-transparent"
+		title="我的成员">
 		<number-detail :list="list"/>
 	</page-container1>
 </template>
@@ -33,10 +35,8 @@ export default {
 <style lang="scss">
 .number-detail {
 	.detail {
-		.extra {
-			color: #333 !important;
-		}
-		.data .text2 {
+		.extra,
+		.text2{
 			color: #333;
 		}
 	}
