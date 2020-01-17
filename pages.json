@@ -1,15 +1,15 @@
 {
 	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
 		{
-			"path" : "pages/agent/agent-apply/index",
-			"style" : {
-				"navigationBarTitleText": "申请学校代理"
-			}
-		},
-		{
 		  "path" : "pages/login/login",
 		  "style" : {
 				"navigationBarTitleText": "登录"
+			}
+		},
+		{
+			"path" : "pages/agent/agent-apply/index",
+			"style" : {
+				"navigationBarTitleText": "申请学校代理"
 			}
 		},
 		{

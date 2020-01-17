@@ -37,6 +37,7 @@
 <script>
 import Search from './search.vue'
 import SelectedList from './selected-list.vue'
+
 export default {
 	components: {
 		Search,
@@ -69,7 +70,7 @@ export default {
 	},
 	methods: {
 		onSelectListDel(index) {
-			this.list.splice(index,1)
+			this.selected.list.splice(index,1)
 		},
 		onChangeMaskStatus(status) {
 			this.maskShow = status
@@ -101,7 +102,7 @@ export default {
 			Object.assign(this.selected, {
 				type: index,
 				title: item,
-				list: `list${index}`
+				list: index === 0 ? list0: list1
 			})
 		}
 	}
@@ -112,6 +113,7 @@ export default {
 .agent-apply {
 	position: relative;
 	padding: 24upx 36upx 0;
+	height: 100vh;
 	.bg {
 		position: absolute;
 		top: 0;
@@ -285,16 +287,19 @@ export default {
 			color: #FF0202;
 		}
 		
-		.area {
-			font-size: 28upx;
-			line-height: 40upx;
-			color: #2F2626;
-			&:not(:last-child):after {
-				content: '';
-				width: 1upx;
-				height: 100%;
-				background-color: #d5d5d5;
-				margin: 0 15upx;
+		.area-list {		
+			.area {
+				font-size: 28upx;
+				line-height: 40upx;
+				color: #2F2626;
+				&:not(:last-child):after {
+					content: '|';
+					margin: 0 15upx;
+					font-weight: lighter;
+					font-size: 40upx;
+					line-height: 1;
+					color: #d5d5d5;
+				}
 			}
 		}
 	}

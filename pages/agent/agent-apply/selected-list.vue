@@ -7,18 +7,20 @@
 			<view 
 				v-for="(item,index) of list"
 				:key="index"
-				class="school">
-				<!-- :class="delIndex === index?'animation-reverse animation-scale-up':''" -->
+				class="school"
+				:class="delIndex === index?'animation-reverse animation-scale-up':''">
 				<block v-if="type === 0">					
 					<view class="name">{{item.name}}</view>
 					<view class="address">地址：{{item.address}}</view>
 				</block>
-				<block v-else>
+				<view 
+					v-else
+					class="area-list">
 					<text 
-						v-for="(itm,idx) of area"
+						v-for="(itm,idx) of item.area"
 						:key="idx"
 						class="area">{{itm}}</text>
-				</block>
+				</view>
 				<text 
 					@click="onClickDel(index)"
 					class="cuIcon-roundclosefill"></text>

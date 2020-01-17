@@ -17,9 +17,9 @@
 				</view>
 			</view>
 		</view>
-		<view class="login_btn" open-type="getUserInfo" withCredentials="true" lang="zh_CN" @getuserinfo="wxGetUserInfo"  @tap="gotoLogin()">
+		<button class="login_btn" open-type="getUserInfo" withCredentials="true" lang="zh_CN" @getuserinfo="wxGetUserInfo"  @tap="gotoLogin()">
 			立即登录
-		</view>
+		</button>
 	</view>
 </template>
 
@@ -106,7 +106,7 @@
 								let useridStr = JSON.stringify(res.data.object.userid);
 								uni.setStorageSync('userid',useridStr);
 								// let useridStr = JSON.stringify({userid:123,type:1});
-								that.$Classification.connectSocketInit(useridStr);
+								// that.$Classification.connectSocketInit(useridStr);
 								if(that.$Classification.loginUrl == 'test'){
 									uni.navigateTo({
 										url:'../test/test/test?categoryId='+that.$Classification.categoryId
@@ -261,7 +261,14 @@
 			},
 		wxGetUserInfo() {
 			let _this = this;
+			uni.login({
+				scopes: 'auth_base',
+				success: (res) => {
+					const {code} = res
+				}
+			})
 			uni.getUserInfo({
+				lang:'zh_CN',
 				provider: 'weixin',
 				success: function(infoRes) {
 					console.log('当前内容:',infoRes);
@@ -282,6 +289,7 @@
 				}
 			});
 		  },
+			
 		  // 进入这个页面的时候创建websocket连接【整个页面随时使用】
 		  /*connectSocketInit(userid) {
 		  	// 创建一个this.socketTask对象【发送、接收、关闭socket都由这个对象操作】

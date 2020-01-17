@@ -90,8 +90,16 @@ export default {
 			}
 		};
 	},
+	watch: {
+		maskStatus(newVal) {
+			if (!newVal) {
+				this.actionStatus = false
+			}
+		}
+	},
 	methods: {
 		onFocus() {
+			this.actionStatus = false
 			this.$emit('on-change-mask-status',true)
 		},
 		onClickAdd(item) {
@@ -114,6 +122,7 @@ export default {
 				this.type.curIndex = index
 				this.searchList = []
 				this.keywords = ''
+				this.$emit('on-change-mask-status',false)
 				this.$emit('on-change-type',item,index)
 			}
 		}
