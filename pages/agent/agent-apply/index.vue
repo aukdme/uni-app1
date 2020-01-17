@@ -1,40 +1,44 @@
 <template>
-	<page-container1
-		bg-color="bg-f0"
-		title="申请学校代理">
-		<view class="agent-apply">
-			<search 
-				@on-change-mask-status="onChangeMaskStatus"/>
-			<view
-				v-show="maskShow"
-				class="mask"></view>
-			<selected-list 
-				:list="list"
-				@on-del="onSelectListDel"/>
-			
-			
-			<view class="desc">
-				<view class="title">申请理由/备注</view>
-				<textarea
-					v-model="desc"
-					class="content"
-					:maxlength="-1"
-					placeholder="请输入申请理由"></textarea>
-			</view>
-			
-			<button
-				class="cu-btn block submit-btn">提交审核</button>
+	<view class="agent-apply">
+		<image
+			mode="aspectFill"
+			src="/static/bg_task.png"
+			class="bg"></image>
+		<search 
+			:mask-status="maskShow"
+			@on-change-type="onChangeType"
+			@on-change-mask-status="onChangeMaskStatus"/>
+		<view
+			v-show="maskShow"
+			@click="onClickMask"
+			class="mask"></view>
+		<selected-list 
+			:type="selected.type"
+			:title="selected.title"
+			:list="selected.list"
+			@on-del="onSelectListDel"/>
+		
+		
+		<view class="desc">
+			<view class="title">申请理由/备注</view>
+			<textarea
+				v-model="desc"
+				:disabled="maskShow"
+				class="content"
+				:maxlength="-1"
+				placeholder="请输入申请理由"></textarea>
 		</view>
-	</page-container1>
+		
+		<button
+			class="cu-btn block submit-btn">提交审核</button>
+	</view>
 </template>
 
 <script>
-import PageContainer1 from 'components/page-container1.vue'
 import Search from './search.vue'
 import SelectedList from './selected-list.vue'
 export default {
 	components: {
-		PageContainer1,
 		Search,
 		SelectedList
 	},
@@ -42,16 +46,20 @@ export default {
 		return {
 			maskShow: false,
 			actionStatus: false,
-			list: [
-				{name: '成都航空港职业学院1',address: '成都市武侯区太平南新街68号'},
-				{name: '成都航空港职业学院2',address: '成都市武侯区太平南新街68号'},
-				{name: '成都航空港职业学院3',address: '成都市武侯区太平南新街68号'},
-				{name: '成都航空港职业学院4',address: '成都市武侯区太平南新街68号'},
-				{name: '成都航空港职业学院5',address: '成都市武侯区太平南新街68号'},
-				{name: '成都航空港职业学院6',address: '成都市武侯区太平南新街68号'},
-				{name: '成都航空港职业学院7',address: '成都市武侯区太平南新街68号'},
-				{name: '成都航空港职业学院8',address: '成都市武侯区太平南新街68号'}
-			],
+			selected: {
+				type: 0,
+				title: '学校',
+				list: [
+					{name: '成都航空港职业学院1',address: '成都市武侯区太平南新街68号'},
+					{name: '成都航空港职业学院2',address: '成都市武侯区太平南新街68号'},
+					{name: '成都航空港职业学院3',address: '成都市武侯区太平南新街68号'},
+					{name: '成都航空港职业学院4',address: '成都市武侯区太平南新街68号'},
+					{name: '成都航空港职业学院5',address: '成都市武侯区太平南新街68号'},
+					{name: '成都航空港职业学院6',address: '成都市武侯区太平南新街68号'},
+					{name: '成都航空港职业学院7',address: '成都市武侯区太平南新街68号'},
+					{name: '成都航空港职业学院8',address: '成都市武侯区太平南新街68号'}
+				]
+			},
 			
 			desc: ''
 		};
@@ -65,6 +73,36 @@ export default {
 		},
 		onChangeMaskStatus(status) {
 			this.maskShow = status
+		},
+		onClickMask() {
+			this.onChangeMaskStatus(false)
+		},
+		onChangeType(item,index) {
+			const list0 = [
+				{name: '成都航空港职业学院1',address: '成都市武侯区太平南新街68号'},
+				{name: '成都航空港职业学院2',address: '成都市武侯区太平南新街68号'},
+				{name: '成都航空港职业学院3',address: '成都市武侯区太平南新街68号'},
+				{name: '成都航空港职业学院4',address: '成都市武侯区太平南新街68号'},
+				{name: '成都航空港职业学院5',address: '成都市武侯区太平南新街68号'},
+				{name: '成都航空港职业学院6',address: '成都市武侯区太平南新街68号'},
+				{name: '成都航空港职业学院7',address: '成都市武侯区太平南新街68号'},
+				{name: '成都航空港职业学院8',address: '成都市武侯区太平南新街68号'}
+			]
+			const list1 = [
+				{area: ['四川省','成都市','武侯区']},
+				{area: ['四川省','成都市','武侯区']},
+				{area: ['四川省','成都市','武侯区']},
+				{area: ['四川省','成都市','武侯区']},
+				{area: ['四川省','成都市','武侯区']},
+				{area: ['四川省','成都市','武侯区']},
+				{area: ['四川省','成都市','武侯区']},
+				{area: ['四川省','成都市','武侯区']}
+			]
+			Object.assign(this.selected, {
+				type: index,
+				title: item,
+				list: `list${index}`
+			})
 		}
 	}
 }
@@ -74,6 +112,14 @@ export default {
 .agent-apply {
 	position: relative;
 	padding: 24upx 36upx 0;
+	.bg {
+		position: absolute;
+		top: 0;
+		left: 0;
+		z-index: -1;
+		width: 100%;
+		height: 100%;
+	}	
 	.mask {
 		position: absolute;
 		top: 0;
@@ -148,13 +194,15 @@ export default {
 					color: #F13D4B;
 				}
 				.name {
+					font-size: 24upx;
 					line-height: 34upx;
 				}
 				.add {
 					position: absolute;
-					top: 10upx;
+					top: 14upx;
 					right: 10upx;
 					width: 80upx;
+					font-size: 24upx;
 					line-height: 56upx;
 					text-align: center;
 					@extend .highlight;
@@ -163,6 +211,31 @@ export default {
 					}
 				}
 				
+			}
+		}
+	
+		.type-list {
+			position: absolute;
+			top: 82upx;
+			right: 0;
+			z-index: 10;
+			background-color: #fff;
+			border-radius: 8upx;
+			.type {
+				position: relative;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				width: 168upx;
+				height: 60upx;
+				font-size: 28upx;
+				color: #827D7D;
+				&:not(:last-child):after {
+					@extend %line;
+				}
+				&-active {
+					color: #2F2626;
+				}
 			}
 		}
 	}
@@ -210,6 +283,19 @@ export default {
 			right: 35upx;
 			font-size: 48upx;
 			color: #FF0202;
+		}
+		
+		.area {
+			font-size: 28upx;
+			line-height: 40upx;
+			color: #2F2626;
+			&:not(:last-child):after {
+				content: '';
+				width: 1upx;
+				height: 100%;
+				background-color: #d5d5d5;
+				margin: 0 15upx;
+			}
 		}
 	}
 

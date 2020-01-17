@@ -2,15 +2,15 @@
 	<view class="cu-bar search">
 		<view class="search-form round">
 			<input 
+				v-model="keywords"
 				@focus="onFocus"
-				@blur="onBlur"
 				:adjust-position="false" 
 				type="text" 
-				placeholder="请输入申请的学校代理" 
+				:placeholder="`请输入申请的${type.curValue}代理`" 
 				confirm-type="search"></input>
 		</view>
 		<view 
-			v-show="searchListShow"
+			v-show="maskStatus && searchListShow"
 			class="search-list-container">
 			<scroll-view
 				scroll-y
@@ -25,18 +25,18 @@
 						class="add">添加</text>
 				</view>
 			</scroll-view>
-			<view class="extra">				
+			<!-- <view class="extra">				
 				<text
 					@click="onClickClose"
 					class="cuIcon-roundclose"></text>
-			</view>
+			</view> -->
 		</view>
 		
 		
 		<view 
 			@click="onClickAction"
 			class="action">
-			<text>按学校</text>
+			<text>按{{type.curValue}}</text>
 			<text 
 				:class="[
 					'cuIcon-triangledownfill',
@@ -44,39 +44,78 @@
 				]">
 				</text>
 		</view>
+		<view 
+			v-show="actionStatus"
+			class="type-list">
+			<view 
+				v-for="(item,index) of type.list"
+				:key="index"
+				@click="onClickType(item,index)"
+				:class="['type',{'type-active':index === type.curIndex}]">{{item}}</view>
+		</view>
 		
 	</view>
 </template>
 
 <script>
 export default {
+	props: {
+		maskStatus: Boolean
+	},
 	data() {
 		return {
+			keywords: '',
 			actionStatus: false,
-			searchListShow: false,
+			searchListShow: true,
 			searchList: [
 				{name: '计算机科学与技术职业学院'},
 				{name: '计算机科学与技术职业学院1'},
+				{name: '计算机科学与技术职业学院1'},
+				{name: '计算机科学与技术职业学院1'},
+				{name: '计算机科学与技术职业学院1'},
+				{name: '计算机科学与技术职业学院1'},
+				{name: '计算机科学与技术职业学院1'},
+				{name: '计算机科学与技术职业学院1'},
+				{name: '计算机科学与技术职业学院1'},
+				{name: '计算机科学与技术职业学院1'},
+				{name: '计算机科学与技术职业学院1'},
+				{name: '计算机科学与技术职业学院1'},
 				{name: '计算机科学与技术职业学院2'}
-			]
+			],
+			
+			type: {
+				curIndex: 0,
+				curValue: '学校',
+				list: ['学校','区域']
+			}
 		};
 	},
 	methods: {
 		onFocus() {
-			this.searchListShow = true
-			this.$emit('on-focus')
 			this.$emit('on-change-mask-status',true)
 		},
 		onClickAdd(item) {
-			this.searchListShow = false
 			this.$emit('on-select',item)
-		},
-		onClickClose() {
-			this.searchListShow = false
-			this.$emit('on-change-mask-status',false)
+			uni.showToast({
+				icon: 'none',
+				title: '已添加到申请列表！'
+			})
 		},
 		onClickAction() {
-			this.actionStatus = !this.actionStatus
+			this.searchListShow = false
+			this.actionStatus = !this.actionStatus		
+			this.$emit('on-change-mask-status',this.actionStatus)
+		},
+		onClickType(item,index) {
+			this.actionStatus = false
+			this.searchListShow = true
+			if (this.type.curIndex !== index) {
+				this.type.curValue = item
+				this.type.curIndex = index
+				this.searchList = []
+				this.keywords = ''
+				this.$emit('on-change-type',item,index)
+			}
 		}
 	}
 }

@@ -3,7 +3,7 @@
 		{
 			"path" : "pages/agent/agent-apply/index",
 			"style" : {
-				"navigationStyle": "custom"
+				"navigationBarTitleText": "申请学校代理"
 			}
 		},
 		{
