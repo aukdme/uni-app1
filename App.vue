@@ -56,6 +56,23 @@ export default {
 	.impact {
 		font-family: Impact;
 	}
+	.no-found {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		font-size: 28upx;
+		height: 60upx;
+		color: #f5f5f5;
+		text {
+			margin: 0 20upx;
+			letter-spacing: 2upx;
+		}
+		view {
+			width: 100upx;
+			border-top: 1upx solid;
+		}
+	}
+	
 	.common-detail {
 		margin: 10upx 30upx 0;
 		.title {

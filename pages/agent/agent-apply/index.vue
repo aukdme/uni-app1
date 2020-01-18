@@ -5,31 +5,30 @@
 			src="/static/bg_task.png"
 			class="bg"></image>
 		<search 
-			:mask-status="maskShow"
-			@on-change-type="onChangeType"
-			@on-change-mask-status="onChangeMaskStatus"/>
-		<view
-			v-show="maskShow"
-			@click="onClickMask"
-			class="mask"></view>
+			@on-mask-show="onMaskShow"
+			@on-select="onSelect"
+			@on-change-type="onChangeType"/>
+		
 		<selected-list 
+			ref="selectedList"
 			:type="selected.type"
 			:title="selected.title"
 			:list="selected.list"
-			@on-del="onSelectListDel"/>
+			@on-del="onSelectedListDel"/>
 		
 		
 		<view class="desc">
 			<view class="title">申请理由/备注</view>
 			<textarea
 				v-model="desc"
-				:disabled="maskShow"
+				:disabled="descDiabled"
 				class="content"
 				:maxlength="-1"
 				placeholder="请输入申请理由"></textarea>
 		</view>
 		
 		<button
+			@click="onClickSubmit"
 			class="cu-btn block submit-btn">提交审核</button>
 	</view>
 </template>
@@ -45,12 +44,11 @@ export default {
 	},
 	data() {
 		return {
-			maskShow: false,
-			actionStatus: false,
 			selected: {
 				type: 0,
 				title: '学校',
-				list: [
+				list: [],
+				type0List: [
 					{name: '成都航空港职业学院1',address: '成都市武侯区太平南新街68号'},
 					{name: '成都航空港职业学院2',address: '成都市武侯区太平南新街68号'},
 					{name: '成都航空港职业学院3',address: '成都市武侯区太平南新街68号'},
@@ -59,51 +57,54 @@ export default {
 					{name: '成都航空港职业学院6',address: '成都市武侯区太平南新街68号'},
 					{name: '成都航空港职业学院7',address: '成都市武侯区太平南新街68号'},
 					{name: '成都航空港职业学院8',address: '成都市武侯区太平南新街68号'}
+				],
+				type1List: [
+					{area: ['四川省','成都市','武侯区1']},
+					{area: ['四川省','成都市','武侯区2']},
+					{area: ['四川省','成都市','武侯区3']},
+					{area: ['四川省','成都市','武侯区4']},
+					{area: ['四川省','成都市','武侯区5']},
+					{area: ['四川省','成都市','武侯区6']},
+					{area: ['四川省','成都市','武侯区7']},
+					{area: ['四川省','成都市','武侯区8']}
 				]
 			},
 			
-			desc: ''
+			desc: '',
+			descDiabled: false
 		};
 	},
 	onLoad(params) {
 		console.log(params)
+		this.selected.list = this.selected.type0List
 	},
 	methods: {
-		onSelectListDel(index) {
+		onSelectedListDel(index) {
 			this.selected.list.splice(index,1)
 		},
-		onChangeMaskStatus(status) {
-			this.maskShow = status
+		onMaskShow(status) {
+			this.descDiabled = status
 		},
-		onClickMask() {
-			this.onChangeMaskStatus(false)
+		onSelect(item,typeIndex) {
+			this.selected[`type${typeIndex}List`].unshift(item)
+			this.$refs.selectedList.goTop()
 		},
-		onChangeType(item,index) {
-			const list0 = [
-				{name: '成都航空港职业学院1',address: '成都市武侯区太平南新街68号'},
-				{name: '成都航空港职业学院2',address: '成都市武侯区太平南新街68号'},
-				{name: '成都航空港职业学院3',address: '成都市武侯区太平南新街68号'},
-				{name: '成都航空港职业学院4',address: '成都市武侯区太平南新街68号'},
-				{name: '成都航空港职业学院5',address: '成都市武侯区太平南新街68号'},
-				{name: '成都航空港职业学院6',address: '成都市武侯区太平南新街68号'},
-				{name: '成都航空港职业学院7',address: '成都市武侯区太平南新街68号'},
-				{name: '成都航空港职业学院8',address: '成都市武侯区太平南新街68号'}
-			]
-			const list1 = [
-				{area: ['四川省','成都市','武侯区']},
-				{area: ['四川省','成都市','武侯区']},
-				{area: ['四川省','成都市','武侯区']},
-				{area: ['四川省','成都市','武侯区']},
-				{area: ['四川省','成都市','武侯区']},
-				{area: ['四川省','成都市','武侯区']},
-				{area: ['四川省','成都市','武侯区']},
-				{area: ['四川省','成都市','武侯区']}
-			]
+		onChangeType(item,typeIndex) {
+			this.desc = ''
 			Object.assign(this.selected, {
-				type: index,
+				type: typeIndex,
 				title: item,
-				list: index === 0 ? list0: list1
-			})
+				list: this.selected[`type${typeIndex}List`]
+			})				
+		},
+		onClickSubmit() {
+			const {title,list} = this.selected
+			if (!list.length) {
+				uni.showToast({
+					icon: 'none',
+					title: `请添加申请代理${title}`
+				})
+			}
 		}
 	}
 }
@@ -223,12 +224,13 @@ export default {
 			z-index: 10;
 			background-color: #fff;
 			border-radius: 8upx;
+			border: 1upx solid #eee;
 			.type {
 				position: relative;
 				display: flex;
 				justify-content: center;
 				align-items: center;
-				width: 168upx;
+				width: 166upx;
 				height: 60upx;
 				font-size: 28upx;
 				color: #827D7D;
